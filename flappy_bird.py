@@ -13,15 +13,17 @@ def run_game():
 	pygame.display.set_caption("Flappy bird")
 
 	# Utworzenie ptaka
-	bird = Bird(screen)
+	bird = Bird(ai_settings, screen)
 
 	# Zdefiniowania koloru tła.
 	bg_color = (152, 218, 255)
 
 	#Rozpoczęcie pętli głównej gry
 	while True:
-		gf.check_events()		
+		gf.check_events(ai_settings, screen, bird)		
+		bird.update()
 		gf.update_screen(ai_settings, screen, bird)
+
 		
 
 run_game()
