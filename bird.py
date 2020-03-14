@@ -13,7 +13,7 @@ class Bird():
 		self.screen_rect = screen.get_rect()
 
 		#Każdy nowy statek kosmiczny pojawia się na dole ekranu.
-		self.rect.centerx = self.screen_rect.centerx/3
+		self.rect.centerx = self.screen_rect.centerx/2
 		self.rect.centery = self.screen_rect.centery
 
 		# Położenie ptaka jest zdefiniowane za pomocą wartości zmiennoprzecinkowej
@@ -37,11 +37,13 @@ class Bird():
 		# Uaktualnienie położenia ptaka
 		#if self.moving_top or self.steps_to_move_to_top>0:
 		if self.steps_to_move_to_top>0:
-			self.y -= self.ai_settings.bird_speed_fly
+			if self.y > 0:
+				self.y -= self.ai_settings.bird_speed_fly
 			self.steps_to_move_to_top -= 1
 
 		else:
-			self.y += self.ai_settings.bird_speed_fall
+			if self.rect.bottom < self.ai_settings.screen_height:
+				self.y += self.ai_settings.bird_speed_fall
 
 		# Uaktualnienie położenia obiektu ptak.
 		self.rect.y = self.y
