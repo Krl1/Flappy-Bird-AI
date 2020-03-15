@@ -9,8 +9,10 @@ class Bird():
 
 		# Wczytanie obrazu statu kosmicznego i pobranie jego prostokąta.
 		self.image = pygame.image.load('images/bird.bmp')
+
 		self.rect = self.image.get_rect()
 		self.screen_rect = screen.get_rect()
+		self.rect_angle = 0.0
 
 		#Każdy nowy statek kosmiczny pojawia się na dole ekranu.
 		self.rect.centerx = self.screen_rect.centerx/2
@@ -47,4 +49,12 @@ class Bird():
 
 		# Uaktualnienie położenia obiektu ptak.
 		self.rect.y = self.y
-		 
+		
+
+	def die(self):
+		if self.rect.bottom < self.ai_settings.screen_height:
+			self.y += self.ai_settings.bird_speed_fall_die
+			self.rect.y = self.y
+			return True
+		else:
+			return False

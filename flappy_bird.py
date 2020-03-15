@@ -4,34 +4,39 @@ import sys
 
 from settings import Settings
 from bird import Bird
-from pipe import Pipe
+from pipeTop import PipeTop
+from pipeDown import PipeDown
 import game_functions as gf
 
 def run_game():
-	#Inicjalizacja Pygame, ustawień i obiektu ekranu.
 	pygame.init()
 	ai_settings = Settings()
 	screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 	pygame.display.set_caption("Flappy bird")
 	
 	
-
-	# Utworzenie ptaka
 	bird = Bird(ai_settings, screen)
-	pipes = Group()
-	#pipe = Pipe(ai_settings, screen)
+	pipesTop = Group()
+	pipesDown = Group()
 
-	# Zdefiniowania koloru tła.
-	bg_color = (152, 218, 255)
+	running = True
 
-	#Rozpoczęcie pętli głównej gry
-	while True:
+	while running:
 		gf.check_events(ai_settings, screen, bird)		
-		gf.check_pipes(ai_settings, screen, pipes)
+		gf.check_pipes(ai_settings, screen, pipesTop, pipesDown)
 		bird.update()
-		pipes.update()
-		gf.update_screen(ai_settings, screen, bird, pipes)
+		pipesTop.update(bird)
+		pipesDown.update(bird)
+		
+		running = gf.check_collide(pipesDown,pipesTop,bird)
+
+		gf.update_screen(ai_settings, screen, bird, pipesTop, pipesDown)
 
 		
+	bird_fall = True
+	while bird_fall:
+		bird_fall = bird.die()
+		gf.update_screen(ai_settings, screen, bird, pipesTop, pipesDown)
+
 
 run_game()

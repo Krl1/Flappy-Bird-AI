@@ -10,6 +10,7 @@ class Settings():
 		self.screen_height = 500
 		self.bg_color = (152, 218, 255)
 		self.bird_speed_fall = .35
+		self.bird_speed_fall_die = .7
 		self.bird_speed_fly = .4
 		self.bird_jump = 100
 		self.pipe_speed = .2
